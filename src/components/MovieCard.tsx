@@ -4,8 +4,8 @@ import React from 'react'
 
 function MovieCard({ movie }: { movie: Movie }) {
   return (
-    <div className='w-[272px] h-[515.15px] flex flex-col gap-2'>
-        <Image className='border border-gray-300' src={movie.image} alt={movie.title} width={272} height={408} />
+    <div className='flex flex-col gap-2 hover:scale-105 transition-all'>
+        <Image className='border border-gray-300 hover:border-amber-500' src="/the-dark-knight.jpg" alt={movie.title} width={272} height={408} />
         <p>{movie.title}</p>
     </div>
   )
