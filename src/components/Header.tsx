@@ -1,5 +1,7 @@
 import { navLinks } from "@/lib/data";
 import Link from "next/link";
+import { Toggle } from "./ui/toggle";
+import { IoPersonOutline } from "react-icons/io5";
 
 export default function Header() {
   return (
@@ -16,6 +18,13 @@ export default function Header() {
                     </li>
                 ))}
             </ul>
+            </div>
+            <div id="logo" className="fixed right-10 top-0   ">
+                <div className="flex gap-2 items-center bg-black rounded-full border border-white mt-5 px-5 py-2 hover:text-blue-500">
+                    <IoPersonOutline /> 
+                    Sign In
+                </div>
+                {/* <div><Toggle>Moon</Toggle></div> */}
             </div>
         </nav>
     </div>

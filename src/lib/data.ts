@@ -17,11 +17,11 @@ export const navLinks = [
         href: "/theatres",
         icon: () => React.createElement(IoLocationOutline),
     },
-    {
-        label: "Account",
-        href: "/account",
-        icon: () => React.createElement(IoPersonOutline),
-    },
+    // {
+    //     label: "Account",
+    //     href: "/account",
+    //     icon: () => React.createElement(IoPersonOutline),
+    // },
 ] as const;
 
 export const movies = [
