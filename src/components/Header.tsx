@@ -4,20 +4,19 @@ import Link from "next/link";
 export default function Header() {
   return (
     <div>
-        <nav className="p-6 bg-black flex justify-between items-center text-white text-2xl">
-            <div id="nav-links" className="flex gap-6 items-center justify-between w-[25%]">
-            <div id="logo">Home</div>
-            <ul className="flex gap-6 items-center justify-center">
-
+        <nav className="py-6 flex justify-between items-center text-white text-2xl">
+            <div id="nav-links" className="bg-black mt-5 px-10 py-2 border rounded-full border-white flex gap-20 items-center justify-between fixed top-0 left-1/2 -translate-x-1/2">
+            <ul className="flex gap-20">
                 {navLinks.map((link) => (
-                    <li className="hover:text-blue-500" key={link.href}>
-                        <Link href={link.href}>{link.label}</Link>
+                    <li className="hover:text-blue-500 flex items-center gap-3 justify-center" key={link.href}>
+                        {<span>{link.icon()}</span>}
+                        <Link href={link.href}>
+                            {link.label}
+                        </Link>
                     </li>
                 ))}
             </ul>
             </div>
-            <div id="dark-toggle" className="">Toggle Dark Mode</div>
-            
         </nav>
     </div>
   );

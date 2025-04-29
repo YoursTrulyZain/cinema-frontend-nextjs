@@ -1,15 +1,26 @@
+import { IoHomeOutline, IoLocationOutline, IoPersonOutline, IoTicketOutline } from "react-icons/io5";
+import React from "react";
+
 export const navLinks = [
+    {
+        label: "Home",
+        href: "/",
+        icon: () => React.createElement(IoHomeOutline),
+    },
     {
         label: "Tickets",
         href: "/tickets",
+        icon: () => React.createElement(IoTicketOutline),
     },
     {
         label: "Theatres",
         href: "/theatres",
+        icon: () => React.createElement(IoLocationOutline),
     },
     {
         label: "Account",
         href: "/account",
+        icon: () => React.createElement(IoPersonOutline),
     },
 ] as const;
 
