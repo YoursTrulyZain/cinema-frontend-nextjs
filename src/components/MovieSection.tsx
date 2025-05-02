@@ -13,7 +13,7 @@ function MovieSection() {
     useEffect(() => {
         const fetchMovies = async () => {
             try {
-              const res = await fetch('http://localhost:3000/movie'); // 🔁 Update if deployed
+              const res = await fetch('http://localhost:3001/movie'); // 🔁 Update if deployed
               const data = await res.json();
               setMovies(data);
               console.log(data);

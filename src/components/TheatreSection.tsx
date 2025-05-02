@@ -13,7 +13,8 @@ function TheatreSection() {
     useEffect(() => {
         const fetchTheatres = async () => {
             try {
-                const res = await fetch('http://localhost:3000/theatre');
+                const res = await fetch('http://localhost:3001/theatre');
+                console.log(res);
                 const data = await res.json();
                 setTheatres(data);
                 console.log(data);
