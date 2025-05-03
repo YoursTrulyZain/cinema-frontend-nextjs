@@ -17,7 +17,7 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
-    const { setUserAuth } = useAuth();
+    const { setUser } = useAuth();
     const [isLoading, setIsLoading] = useState(false);
 
   if (!isOpen) return null;
@@ -42,15 +42,15 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
         throw new Error(data.message);
       }
 
-      onLoginSuccess(data.accessToken); // Save token later
-
-      const userRes = await fetch("http://localhost:3001/auth/verify", {
+      const userRes = await fetch("http://localhost:3001/user/me", {
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
         },
       });
+
       const userData = await userRes.json();
-      setUserAuth(userData);
+      setUser(userData);
+      onLoginSuccess(data.accessToken); // Save token later
       onClose();
     } catch (err) {
       setError("Login failed. Invalid email or password.");

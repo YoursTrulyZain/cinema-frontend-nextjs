@@ -1,31 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import MovieCard from "./MovieCard";
-import { Movie } from "@/lib/types";
 import SectionHeader from "./SectionHeader";
 import { Skeleton } from "./ui/skeleton";
+import { useAppData } from "@/contexts/AppDataContext";
 
 function MovieSection() {
-    const [movies, setMovies] = useState<Movie[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchMovies = async () => {
-            try {
-              const res = await fetch('http://localhost:3001/movie'); // 🔁 Update if deployed
-              const data = await res.json();
-              setMovies(data);
-              console.log(data);
-            } catch (err) {
-              console.error('Failed to fetch movies:', err);
-            } finally {
-              setLoading(false);
-            }
-          };
-      
-          fetchMovies();
-    }, []);
+    const { movies, loading } = useAppData();
 
     if (loading) {
       return (

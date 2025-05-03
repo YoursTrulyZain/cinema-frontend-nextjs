@@ -1,31 +1,13 @@
 "use client";
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SectionHeader from './SectionHeader';
 import { Card, CardDescription, CardHeader, CardTitle } from './ui/card';
-import { Theatre } from '@/lib/types';
 import { Skeleton } from './ui/skeleton';
+import { useAppData } from '@/contexts/AppDataContext';
 
 function TheatreSection() {
-    const [theatres, setTheatres] = useState<Theatre[]>([]);
-    const [loading, setLoading] = useState(true);
-
-    useEffect(() => {
-        const fetchTheatres = async () => {
-            try {
-                const res = await fetch('http://localhost:3001/theatre');
-                console.log(res);
-                const data = await res.json();
-                setTheatres(data);
-                console.log(data);
-            } catch (err) {
-                console.error('Failed to fetch theatres:', err);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchTheatres();
-    }, []);
+  const { theatres, loading } = useAppData();
 
     if (loading) {
         return (

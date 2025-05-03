@@ -1,23 +1,26 @@
 import React from 'react'
 import { Button } from './ui/button'
-import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
+import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
 import { IoPersonOutline } from 'react-icons/io5'
 import { useAuth } from '@/contexts/AuthContext';
-function UserSheet({ userId }: { userId: string }) {
+import { User } from '@/lib/types';
+function UserSheet({ user }: { user: User }) {
     const { logout } = useAuth();
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline"> <IoPersonOutline />{userId}</Button>
+      <div className='flex gap-2 items-center hover:text-blue-500 bg-black px-10 py-2 border rounded-full border-white cursor-pointer'><IoPersonOutline/> {user.name}</div>
       </SheetTrigger>
-      <SheetContent className='bg-black border-amber-500'>
-        <SheetHeader>
+      <SheetContent className='bg-black border-amber-500 sm:max-w-sm'>
+        <SheetHeader className='hidden'>
           <SheetTitle className='text-center'>My Account</SheetTitle>
+          <SheetDescription>Menu for user to view tickets, manage personal information and logout.</SheetDescription>
         </SheetHeader>
-        <Button variant="outline" className=' text-white w-[80%] mx-auto cursor-pointer'>Tickets</Button>
-        <Button variant="outline" className=' text-white w-[80%] mx-auto cursor-pointer'>Personal Information</Button>
-        <Button variant="outline" className='border-red-500 text-white w-[80%] mx-auto cursor-pointer' onClick={logout}>Logout</Button>
+        <div className='text-white text-2xl font-bold text-center mt-2 mb-5'>My Account</div>
+        <Button variant="outline" className=' text-white w-[80%] mx-auto cursor-pointer hover:border-blue-500'>Tickets</Button>
+        <Button variant="outline" className=' text-white w-[80%] mx-auto cursor-pointer hover:border-blue-500'>Personal Information</Button>
         <SheetFooter>
+            <Button variant="outline" className='border-red-500 text-white w-[80%] mx-auto cursor-pointer hover:bg-red-500' onClick={logout}>Logout</Button>
           <p className='text-center text-white'>v1.0</p>
         </SheetFooter>
       </SheetContent>

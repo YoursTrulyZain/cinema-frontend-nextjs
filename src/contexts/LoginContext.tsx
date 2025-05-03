@@ -1,12 +1,8 @@
 'use client'
 
 import LoginModal from "@/components/LoginModal";
+import { LoginContextType } from "@/lib/types";
 import { createContext, useContext, useState } from "react";
-
-interface LoginContextType {
-    openLoginModal: () => void;
-    isLoggedIn: () => boolean;
-}
 
 const LoginContext = createContext<LoginContextType | undefined>(undefined);
 
