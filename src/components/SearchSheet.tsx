@@ -21,54 +21,60 @@ import {
 import { Separator } from "./ui/separator";
 import { useAppData } from "@/contexts/AppDataContext";
 import MovieBlock from "./MovieBlock";
-import ScreeningCard from "./ScreeningCard";
+import AuditoriumCard from "./AuditoriumCard";
+import { useFilter } from "@/contexts/FilterContext";
+import { Auditorium, AuditoriumType, Movie, ScreeningNormalized, Theatre } from "@/lib/types";
 
 function SearchSheet() {
-  const [selectedMovieId, setSelectedMovieId] = useState<string | null>(null);
-  const [selectedDate, setSelectedDate] = useState<string | null>(null);
-  const [selectedTheatreId, setSelectedTheatreId] = useState<string | null>(
-    null
-  );
+  const { selectedMovie, selectedDate, selectedTheatre, isOpen, toggle } = useFilter();
   const { movies, theatres, screenings, loading, refreshData } = useAppData();
 
   const filteredScreenings = screenings.filter((screening) => {
-    const screeningDate = new Date(screening.startTime)
-      .toISOString()
-      .slice(0, 10); // "YYYY-MM-DD"
+    // const screeningDate = new Date(screening.startTime).getDate();
+    const screeningDate = null
     const matchesMovie =
-      !selectedMovieId || screening.movieId === selectedMovieId;
-    const matchesDate = !selectedDate || screeningDate === selectedDate;
+      !selectedMovie || screening.movie.id === selectedMovie.id;
+    const matchesDate = !selectedDate || screeningDate === selectedDate.getDate();
     const matchesTheatre =
-      !selectedTheatreId || screening.theatreId === selectedTheatreId;
+      !selectedTheatre || screening.theatre.id === selectedTheatre.id;
 
     return matchesMovie && matchesDate && matchesTheatre;
   });
 
   const groupedByTheatre = filteredScreenings.reduce(
     (acc, screening) => {
-      const theatreGroup = acc[screening.theatreId] ?? {
-        theatreName: screening.theatreName,
+      const theatreGroup = acc[screening.theatre.id] ?? {
+        theatre: screening.theatre,
         movies: {},
       };
 
-      const movieGroup = theatreGroup.movies[screening.movieId] ?? {
-        movieTitle: screening.movieTitle,
+      const movieGroup = theatreGroup.movies[screening.movie.id] ?? {
+        movie: screening.movie,
+        auditoriums: {},
+      };
+
+      const auditoriumGroup = movieGroup.auditoriums[screening.auditorium.type] ?? {
+        auditorium: screening.auditorium,
         screenings: [],
       };
 
-      movieGroup.screenings.push(screening);
-      theatreGroup.movies[screening.movieId] = movieGroup;
-      acc[screening.theatreId] = theatreGroup;
+      auditoriumGroup.screenings.push(screening);
+      movieGroup.auditoriums[screening.auditorium.type] = auditoriumGroup;
+      theatreGroup.movies[screening.movie.id] = movieGroup;
+      acc[screening.theatre.id] = theatreGroup;
 
       return acc;
     },
     {} as {
       [theatreId: string]: {
-        theatreName: string;
+        theatre: Theatre;
         movies: {
           [movieId: string]: {
-            movieTitle: string;
-            screenings: typeof screenings;
+            movie: Movie;
+            auditoriums: Record<AuditoriumType, {
+              auditorium: Auditorium;
+              screenings: ScreeningNormalized[];
+            }>;
           };
         };
       };
@@ -76,13 +82,13 @@ function SearchSheet() {
   );
 
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={toggle}>
       <SheetTrigger asChild>
         <div className="flex gap-2 items-center hover:text-blue-500 cursor-pointer">
           <IoSearchOutline /> Find Tickets
         </div>
       </SheetTrigger>
-      <SheetContent className="bg-gradient-to-b from-black via-[#071a55] to-black border-none w-screen">
+      <SheetContent className="bg-gradient-to-b from-black via-[#071a55] to-black border-none w-screen overflow-y-auto max-h-screen">
         <SheetHeader className="hidden">
           <SheetTitle>Tickets</SheetTitle>
           <SheetDescription>
@@ -97,34 +103,30 @@ function SearchSheet() {
         </div>
         <Separator className="my-5 bg-white " />
         <div className="flex flex-col gap-5">
-          {Object.entries(groupedByTheatre).map(([theatreId, theatre]) => (
-            <div>
+          {Object.entries(groupedByTheatre).map(([theatreId, theatreGroup]) => (
+            <div key={theatreId}>
               <Accordion type="single" collapsible>
                 <AccordionItem value="item-1" key={theatreId}>
-                  <AccordionTrigger>{theatre.theatreName}</AccordionTrigger>
-                  <AccordionContent>
-                    {Object.entries(theatre.movies).map(([movieId, movie]) => (
-                      <div>
+                  <AccordionTrigger className="text-4xl mx-15">{theatreGroup.theatre.name}</AccordionTrigger>
+                  <AccordionContent className="mx-15">
+                    {Object.entries(theatreGroup.movies).map(([movieId, movieGroup]) => (
+                      <div key={movieId} className="flex gap-5 mt-5 mb-10 justify-between">
                         <div>
-                          <MovieBlock movie={movie} />
+                          <MovieBlock movie={movieGroup.movie} />
                         </div>
-                        {movie.screenings
-                          .sort(
-                            (a, b) =>
-                              new Date(a.startTime).getTime() -
-                              new Date(b.startTime).getTime()
-                          )
-                          .map((screening) => (
-                            <div>
-                              <ScreeningCard screening={screening} />
-                            </div>
-                          ))}
+                        {Object.entries(movieGroup.auditoriums).map(([auditoriumType, auditoriumGroup]) => (
+                          <div key={auditoriumGroup.auditorium.id}>
+                            <AuditoriumCard auditoriumGroup={auditoriumGroup} />
+                          </div>
+                        ))}
                       </div>
                     ))}
                   </AccordionContent>
                 </AccordionItem>
               </Accordion>
+              <Separator className="my-5 bg-white " />
             </div>
+            
           ))}
         </div>
 

@@ -1,6 +1,5 @@
 'use client'
 
-import { navLinks } from "@/lib/data";
 import Link from "next/link";
 import { IoPersonOutline } from "react-icons/io5";
 import { useLoginContext } from "@/contexts/LoginContext";

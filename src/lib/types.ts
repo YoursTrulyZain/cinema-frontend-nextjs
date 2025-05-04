@@ -17,6 +17,7 @@ export interface AppDataContextType {
   movies: Movie[];
   theatres: Theatre[];
   screenings: ScreeningNormalized[];
+  dates: Date[];
   loading: boolean;
   refreshData: () => void;
 }
@@ -24,6 +25,19 @@ export interface AppDataContextType {
 export interface LoginContextType {
   openLoginModal: () => void;
   isLoggedIn: () => boolean;
+}
+
+export interface FilterContextType {
+  selectedMovie: Movie | null;
+  selectedDate: Date | null;
+  selectedTheatre: Theatre | null;
+  setSelectedMovie: (movie: Movie | null) => void;
+  setSelectedDate: (date: Date | null) => void;
+  setSelectedTheatre: (theatre: Theatre | null) => void;
+  isOpen: boolean;
+  openWithMovie: (movie: Movie) => void;
+  openWithTheatre: (theatre: Theatre) => void;
+  toggle: (newState: boolean) => void;
 }
 
 export type User = {
@@ -73,11 +87,8 @@ export type Screening = {
 export type ScreeningNormalized = {
   id: string;
   movie: Movie;
-  theatreId: string;
-  theatreName: string;
-  auditoriumId: string;
-  auditoriumNumber: number;
-  auditoriumType: string;
+  theatre: Theatre;
+  auditorium: Auditorium;
   startTime: Date;
 };
 

@@ -18,13 +18,10 @@ function mapDataToScreenings(
 
         screenings.push({
           id: screening.id,
-          movie,
-          theatreId: theatre.id,
-          theatreName: theatre.name,
-          auditoriumId: auditorium.id,
-          auditoriumNumber: auditorium.number,
-          auditoriumType: auditorium.type,
           startTime: screening.startTime,
+          movie,
+          theatre,
+          auditorium,
         });
       }
     }

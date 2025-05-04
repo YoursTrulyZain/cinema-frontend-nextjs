@@ -16,6 +16,7 @@ function AppDataProvider({ children }: { children: React.ReactNode }) {
     const [movies, setMovies] = useState<Movie[]>([]);
     const [theatres, setTheatres] = useState<Theatre[]>([]);
     const [screenings, setScreenings] = useState<ScreeningNormalized[]>([]);
+    const [dates, setDates] = useState<Date[]>([]);
     const [loading, setLoading] = useState(true);
 
     const fetchData = async () => {
@@ -29,7 +30,15 @@ function AppDataProvider({ children }: { children: React.ReactNode }) {
             setMovies(moviesData);
             setTheatres(theatresData);
             const flatScreenings = mapDataToScreenings(theatresData, moviesData);
-            setScreenings(flatScreenings)
+            setScreenings(flatScreenings);
+            
+            // Generate 7 days from today
+            const weekDates = Array.from({ length: 7 }, (_, i) => {
+                const date = new Date();
+                date.setDate(date.getDate() + i);
+                return date;
+            });
+            setDates(weekDates);
         } catch (error) {
             console.error('Error fetching app data:', error);
         } finally {
@@ -44,7 +53,7 @@ function AppDataProvider({ children }: { children: React.ReactNode }) {
     const refreshData = () => fetchData();
 
     return (
-        <AppDataContext.Provider value={{ movies, theatres, screenings, loading, refreshData }}>
+        <AppDataContext.Provider value={{ movies, theatres, screenings, dates, loading, refreshData }}>
             {children}
         </AppDataContext.Provider>
     )

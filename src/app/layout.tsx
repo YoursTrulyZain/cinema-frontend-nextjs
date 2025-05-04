@@ -6,6 +6,7 @@ import Footer from "../components/Footer";
 import { LoginProvider } from "@/contexts/LoginContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import { AppDataProvider } from "@/contexts/AppDataContext";
+import { FilterProvider } from "@/contexts/FilterContext";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,9 +36,11 @@ export default function RootLayout({
         <AuthProvider>
           <LoginProvider>
             <AppDataProvider>
-              <Header />
-              {children}
-              <Footer />
+              <FilterProvider>
+                <Header />
+                {children}
+                <Footer />
+              </FilterProvider>
             </AppDataProvider>
           </LoginProvider>
         </AuthProvider>
