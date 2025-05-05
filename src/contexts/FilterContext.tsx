@@ -13,7 +13,7 @@ const useFilter = () => {
 
 function FilterProvider({ children }: { children: React.ReactNode }) {
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
-  const [selectedDate, setSelectedDate] = useState<Date | null>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedTheatre, setSelectedTheatre] = useState<Theatre | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   function openWithMovie(movie: Movie) {

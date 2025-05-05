@@ -14,23 +14,31 @@ const useAuth = (): AuthContextType => {
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() => {
-        const token = localStorage.getItem("token");
-        if (!token) return;
-    
-        fetch("http://localhost:3001/user/me", {
+    const fetchUser = async () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        setUser(null);
+        return;
+      }
+  
+      try {
+        const res = await fetch("http://localhost:3001/user/me", {
           headers: { Authorization: `Bearer ${token}` },
-        })
-          .then((res) => {
-            if (!res.ok) throw new Error("Invalid token");
-            return res.json();
-          })
-          .then((data: User) => setUser(data))
-          .catch(() => {
-            localStorage.removeItem("token");
-            setUser(null);
-          });
-      }, []);
+        });
+  
+        if (!res.ok) throw new Error("Invalid token");
+  
+        const data: User = await res.json();
+        setUser(data);
+      } catch (error) {
+        localStorage.removeItem("token");
+        setUser(null);
+      }
+    };
+  
+    useEffect(() => {
+      fetchUser();
+    }, []);
 
       const logout = () => {
         localStorage.removeItem("token");
@@ -38,7 +46,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       return (
-        <AuthContext.Provider value={{ user, setUser, logout }}>
+        <AuthContext.Provider value={{ user, setUser, logout, refreshUser: fetchUser }}>
           {children}
         </AuthContext.Provider>
       );

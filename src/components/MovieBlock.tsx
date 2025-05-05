@@ -1,3 +1,5 @@
+'use client';
+
 import { Movie } from '@/lib/types'
 import Image from 'next/image'
 import React from 'react'

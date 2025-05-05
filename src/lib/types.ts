@@ -11,6 +11,7 @@ export interface AuthContextType {
   user: User | null;
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   logout: () => void;
+  refreshUser: () => void;
 }
 
 export interface AppDataContextType {
@@ -66,6 +67,46 @@ export type Ticket = {
   screeningId: string;
   purchasedAt: Date;
   refunded: boolean;
+};
+
+export type TicketData = {
+  id: string;
+  seat: SeatData;
+  screening: ScreeningData;
+  purchasedAt: Date;
+  refunded: boolean;
+};
+
+export type ScreeningData = {
+  movie: MovieData;
+  auditorium: AuditoriumData;
+  startTime: Date;
+};
+
+export type SeatData = {
+  auditorium: AuditoriumData;
+  row: Row;
+  number: number;
+};
+
+export type AuditoriumData = {
+  number: number;
+  type: AuditoriumType;
+  theatre: TheatreData;
+};
+
+export type TheatreData = {
+  name: string;
+  location: string;
+  phone: string;
+  email: string;
+};
+
+export type MovieData = {
+  title: string;
+  description: string;
+  tags: string[];
+  duration: number;
 };
 
 export type Seat = {

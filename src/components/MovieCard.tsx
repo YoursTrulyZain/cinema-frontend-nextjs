@@ -1,3 +1,5 @@
+'use client';
+
 import { useFilter } from '@/contexts/FilterContext';
 import { Movie } from '@/lib/types'
 import Image from 'next/image'

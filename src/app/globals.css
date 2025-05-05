@@ -3,4 +3,20 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/* Modal styles */
+.modal-open {
+  overflow: hidden !important;
+}
 
+/* Ensure modals are always on top */
+[role="dialog"][aria-modal="true"] {
+  z-index: 9999 !important;
+  position: fixed !important;
+  inset: 0 !important;
+  pointer-events: auto !important;
+}
+
+/* Make sure elements behind modals can't be interacted with */
+body.modal-open > *:not([role="dialog"]) {
+  pointer-events: none !important;
+}

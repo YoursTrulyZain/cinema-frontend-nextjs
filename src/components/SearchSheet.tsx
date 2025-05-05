@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useMemo, useState } from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import {
@@ -24,6 +26,7 @@ import MovieBlock from "./MovieBlock";
 import AuditoriumCard from "./AuditoriumCard";
 import { useFilter } from "@/contexts/FilterContext";
 import { Auditorium, AuditoriumType, Movie, ScreeningNormalized, Theatre } from "@/lib/types";
+import TicketPurchaseFlow from "./TicketPurchaseFlow";
 
 function SearchSheet() {
   const { selectedMovie, selectedDate, selectedTheatre, isOpen, toggle } = useFilter();
@@ -102,34 +105,7 @@ function SearchSheet() {
           <TheatreSheet />
         </div>
         <Separator className="my-5 bg-white " />
-        <div className="flex flex-col gap-5">
-          {Object.entries(groupedByTheatre).map(([theatreId, theatreGroup]) => (
-            <div key={theatreId}>
-              <Accordion type="single" collapsible>
-                <AccordionItem value="item-1" key={theatreId}>
-                  <AccordionTrigger className="text-4xl mx-15">{theatreGroup.theatre.name}</AccordionTrigger>
-                  <AccordionContent className="mx-15">
-                    {Object.entries(theatreGroup.movies).map(([movieId, movieGroup]) => (
-                      <div key={movieId} className="flex gap-5 mt-5 mb-10 justify-between">
-                        <div>
-                          <MovieBlock movie={movieGroup.movie} />
-                        </div>
-                        {Object.entries(movieGroup.auditoriums).map(([auditoriumType, auditoriumGroup]) => (
-                          <div key={auditoriumGroup.auditorium.id}>
-                            <AuditoriumCard auditoriumGroup={auditoriumGroup} />
-                          </div>
-                        ))}
-                      </div>
-                    ))}
-                  </AccordionContent>
-                </AccordionItem>
-              </Accordion>
-              <Separator className="my-5 bg-white " />
-            </div>
-            
-          ))}
-        </div>
-
+        <TicketPurchaseFlow groupedByTheatre={groupedByTheatre} />
         <SheetFooter></SheetFooter>
       </SheetContent>
     </Sheet>

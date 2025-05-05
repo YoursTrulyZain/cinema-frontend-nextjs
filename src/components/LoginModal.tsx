@@ -1,24 +1,50 @@
-'use client'
+'use client';
 
-import Link from 'next/link'
-import React, { useState } from 'react'
-import { IoCloseOutline } from 'react-icons/io5';
-import { Input } from './ui/input';
-import { Button } from './ui/button';
-import { useAuth } from '@/contexts/AuthContext';
+import Link from "next/link";
+import React, { useState } from "react";
+import { IoCloseOutline } from "react-icons/io5";
+import { Input } from "./ui/input";
+import { Button } from "./ui/button";
+import { useAuth } from "@/contexts/AuthContext";
+import Modal from "./Modal";
 
 interface LoginModalProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onLoginSuccess: (token: string) => void;
+  isOpen: boolean;
+  onClose: () => void;
+  onLoginSuccess: (token: string) => void;
 }
 
 function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [error, setError] = useState("");
-    const { setUser } = useAuth();
-    const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const { setUser } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Reset form state when modal opens
+  React.useEffect(() => {
+    if (isOpen) {
+      setEmail("");
+      setPassword("");
+      setError("");
+      setIsLoading(false);
+    }
+  }, [isOpen]);
+
+  // Create a ref for the form element
+  const formRef = React.useRef<HTMLFormElement>(null);
+
+  // Focus the email input when the modal opens
+  React.useEffect(() => {
+    if (isOpen && formRef.current) {
+      const emailInput = formRef.current.querySelector('input[type="email"]');
+      if (emailInput) {
+        setTimeout(() => {
+          (emailInput as HTMLInputElement).focus();
+        }, 100);
+      }
+    }
+  }, [isOpen]);
 
   if (!isOpen) return null;
 
@@ -60,40 +86,72 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
   };
 
   return (
-    <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
-        <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md flex flex-col gap-4  justify-center text-black">
-            
-            <div className='flex justify-between items-center'>
-                <div className='w-full'>
-                    <div className='flex justify-between items-center'>
-                        <h1 className='text-2xl font-bold'>Login</h1>
-                        <IoCloseOutline onClick={onClose} className='text-2xl cursor-pointer' />
-                    </div>
-                    
-                    <p className='text-sm text-gray-500'>Don't have an account? <Link href="/signup" className='text-blue-500 underline'>Sign up</Link></p>
-                </div>
-            </div>
-            <div>
-                <form className='flex flex-col gap-4' onSubmit={handleSubmit}>
-                    <Input type="email" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
-                    <Input type="password" placeholder="Password" required value={password} onChange={(e) => setPassword(e.target.value)} />
-                </form>
-            </div>
-            <div>
-                {error && <p className="text-red-500">{error}</p>}
-            </div>
-            <div>
-                {isLoading ? (
-                    <Button type="submit"  onClick={handleSubmit} className='bg-black w-full text-white cursor-pointer py-3' disabled><div className="w-4 h-4 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div> Please Wait</Button>
-                    
-                ) : (
-                    <Button type="submit"  onClick={handleSubmit} className='bg-black w-full text-white cursor-pointer py-3' disabled={!email || !password}>Login</Button>
-                )}
-            </div>
-        </div>
-    </div>
-    
-  )
+    <Modal isOpen={isOpen} onClose={onClose} title="Login">
+      <div className="flex flex-col gap-4">
+        <form ref={formRef} className="flex flex-col gap-4" onSubmit={handleSubmit}>
+          <Input
+            type="email"
+            placeholder="Email"
+            required
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="z-[10000]"
+            tabIndex={1}
+          />
+          <Input
+            type="password"
+            placeholder="Password"
+            required
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="z-[10000]"
+            tabIndex={2}
+          />
+          <div>{error && <p className="text-red-500">{error}</p>}</div>
+          <div>
+            {isLoading ? (
+              <Button
+                type="submit"
+                className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
+                disabled
+                tabIndex={-1}
+              >
+                <div className="w-4 h-4 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>{" "}
+                Please Wait
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
+                disabled={!email || !password}
+                tabIndex={3}
+              >
+                Login
+              </Button>
+            )}
+          </div>
+          <p className='text-sm text-gray-500 text-center pt-2'>Don't have an account? <Link href="/signup" className='text-blue-500 underline z-[10000]' tabIndex={4}>Sign up</Link></p>
+        </form>
+      </div>
+    </Modal>
+  );
 }
 
-export default LoginModal
+export default LoginModal;
+
+// <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
+//     <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md flex flex-col gap-4  justify-center text-black">
+
+//         <div className='flex justify-between items-center'>
+//             <div className='w-full'>
+//                 <div className='flex justify-between items-center'>
+//                     <h1 className='text-2xl font-bold'>Login</h1>
+//                     <IoCloseOutline onClick={onClose} className='text-2xl cursor-pointer' />
+//                 </div>
+
+//                 <p className='text-sm text-gray-500'>Don't have an account? <Link href="/signup" className='text-blue-500 underline'>Sign up</Link></p>
+//             </div>
+//         </div>
+
+//     </div>
+// </div>

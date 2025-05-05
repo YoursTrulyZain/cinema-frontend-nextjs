@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react'
 import { RiMovie2Line } from "react-icons/ri";
 

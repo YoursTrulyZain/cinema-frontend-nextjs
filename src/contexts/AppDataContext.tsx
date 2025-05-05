@@ -28,6 +28,7 @@ function AppDataProvider({ children }: { children: React.ReactNode }) {
             ]);
             const [moviesData, theatresData] = await Promise.all([movieResponse.json(), theatreResponse.json()]);
             setMovies(moviesData);
+            console.log(theatresData);
             setTheatres(theatresData);
             const flatScreenings = mapDataToScreenings(theatresData, moviesData);
             setScreenings(flatScreenings);

@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react'
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
 import { RiMovie2Line } from 'react-icons/ri'
