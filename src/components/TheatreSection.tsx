@@ -11,7 +11,7 @@ function TheatreSection() {
   const { openWithTheatre } = useFilter();
     if (loading) {
         return (
-          <section className="flex flex-col gap-6 mt-15">
+          <section className="flex flex-col gap-6 mx-13 mt-15">
             <SectionHeader title="Movies" />
             <div id="theatre-grid-container" className="flex flex-wrap gap-8">
               <Skeleton className="w-[250px] h-[92px]" />
@@ -23,7 +23,7 @@ function TheatreSection() {
         )
         }
   return (
-    <section className="flex flex-col gap-6 mt-15">
+    <section className="flex flex-col gap-6 mx-13 mt-15" >
       <SectionHeader title="Theatres" />
       <div id="theatre-grid-container" className="flex flex-wrap gap-8">
         {theatres.map((theatre) => (

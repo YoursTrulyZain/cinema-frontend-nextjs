@@ -13,8 +13,10 @@ const useAuth = (): AuthContextType => {
 
 function AuthProvider({ children }: { children: React.ReactNode }) {
     const [user, setUser] = useState<User | null>(null);
+    const [isLoading, setIsLoading] = useState(true);
 
     const fetchUser = async () => {
+      setIsLoading(true);
       const token = localStorage.getItem("token");
       if (!token) {
         setUser(null);
@@ -33,6 +35,8 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       } catch (error) {
         localStorage.removeItem("token");
         setUser(null);
+      } finally {
+        setIsLoading(false);
       }
     };
   
@@ -46,7 +50,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       };
 
       return (
-        <AuthContext.Provider value={{ user, setUser, logout, refreshUser: fetchUser }}>
+        <AuthContext.Provider value={{ user, setUser, logout, refreshUser: fetchUser, isLoading }}>
           {children}
         </AuthContext.Provider>
       );

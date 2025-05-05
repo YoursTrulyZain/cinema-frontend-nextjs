@@ -11,7 +11,7 @@ function MovieSection() {
 
     if (loading) {
       return (
-        <section className="flex flex-col gap-6 mt-15">
+        <section className="flex flex-col gap-6 mx-13 mt-17">
           <SectionHeader title="Movies" />
           <div id="movie-grid-container" className="flex flex-wrap gap-8">
             <Skeleton className="w-[272px] h-[434px] rounded-none" />
@@ -23,7 +23,7 @@ function MovieSection() {
       )
       }
     return (
-        <section className="flex flex-col gap-6 mt-15">
+        <section className="flex flex-col gap-6 mx-13 mt-17">
             <SectionHeader title="Movies" />
             <div id="movie-grid-container" className="flex flex-wrap gap-8">
                 {movies.map((movie) => (

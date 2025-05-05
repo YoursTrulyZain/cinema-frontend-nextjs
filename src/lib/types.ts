@@ -12,6 +12,7 @@ export interface AuthContextType {
   setUser: React.Dispatch<React.SetStateAction<User | null>>;
   logout: () => void;
   refreshUser: () => void;
+  isLoading: boolean;
 }
 
 export interface AppDataContextType {

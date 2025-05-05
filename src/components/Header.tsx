@@ -6,10 +6,11 @@ import { useLoginContext } from "@/contexts/LoginContext";
 import { useAuth } from "@/contexts/AuthContext";
 import UserSheet from "./UserSheet";
 import SearchSheet from "./SearchSheet";
+import { Skeleton } from "./ui/skeleton";
 
 export default function Header() {
     const { openLoginModal, isLoggedIn } = useLoginContext();
-    const { user } = useAuth();
+    const { user, isLoading } = useAuth();
 
     const handleLoginClick = () => {
         if (isLoggedIn()) {
@@ -36,7 +37,9 @@ export default function Header() {
                 <SearchSheet />
             </div>
             <div id="logo" className="fixed right-10 top-5">
-                {user ? (
+                {isLoading ? (
+                    <Skeleton className="w-10 h-10 px-20 py-6 rounded-full" />
+                ) : user ? (
                         <UserSheet user={user} />
                 ) : (
                     <div onClick={handleLoginClick} className="flex gap-2 items-center bg-black rounded-full border border-white px-5 py-2 hover:text-blue-500 cursor-pointer">
