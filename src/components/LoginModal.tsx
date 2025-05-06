@@ -79,6 +79,7 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
       onClose();
     } catch (err) {
       setError("Login failed. Invalid email or password.");
+      console.log(err);
     } finally {
       setIsLoading(false);
     }
@@ -129,7 +130,7 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
               </Button>
             )}
           </div>
-          <p className='text-sm text-gray-500 text-center pt-2'>Don't have an account? <Link href="/signup" className='text-blue-500 underline z-[10000]' tabIndex={4}>Sign up</Link></p>
+          {/* <p className='text-sm text-gray-500 text-center pt-2'>Don&apos;t have an account? <Link href="/signup" className='text-blue-500 underline z-[10000]' tabIndex={4}>Sign up</Link></p> */}
         </form>
       </div>
     </Modal>

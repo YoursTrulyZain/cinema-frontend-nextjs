@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect } from 'react'
 import Modal from './Modal'
 import { ALL_ROWS, Row, ScreeningNormalized, Seat } from '@/lib/types';
 import { cn } from '@/lib/utils';

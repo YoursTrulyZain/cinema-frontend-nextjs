@@ -34,6 +34,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
         setUser(data);
       } catch (error) {
         localStorage.removeItem("token");
+        console.log(error);
         setUser(null);
       } finally {
         setIsLoading(false);

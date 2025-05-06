@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from './ui/sheet'
-import { Ticket, TicketData, User } from '@/lib/types'
+import { TicketData, User } from '@/lib/types'
 import { CardContent, CardDescription, CardFooter } from './ui/card'
 import { CardHeader, CardTitle } from './ui/card'
 import { Card } from './ui/card'

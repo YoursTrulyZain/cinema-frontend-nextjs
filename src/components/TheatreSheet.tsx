@@ -3,7 +3,6 @@
 import React, { useState } from 'react'
 import { Sheet, SheetHeader, SheetContent, SheetTrigger, SheetTitle, SheetFooter, SheetDescription } from './ui/sheet'
 import { IoLocationOutline } from 'react-icons/io5'
-import TheatreSection from './TheatreSection'
 import { CardDescription, CardHeader, CardTitle } from './ui/card'
 import { Card } from './ui/card'
 import { useAppData } from '@/contexts/AppDataContext'

@@ -13,33 +13,35 @@ interface ModalProps {
 }
 
 function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-lg" }: ModalProps) {
-    if (!isOpen) return null;
 
-    useEffect(() => {
-      const modalElement = document.body;
-    
-      if (isOpen && modalElement) {
-        disableBodyScroll(modalElement);
-      }
-    
-      return () => {
-        enableBodyScroll(modalElement);
+  useEffect(() => {
+    const modalElement = document.body;
+  
+    if (isOpen && modalElement) {
+      disableBodyScroll(modalElement);
+    }
+  
+    return () => {
+      enableBodyScroll(modalElement);
+    };
+  }, [isOpen]);
+
+  // Handle escape key press
+  useEffect(() => {
+      const handleEsc = (event: KeyboardEvent) => {
+          if (event.key === 'Escape') {
+              onClose();
+          }
       };
-    }, [isOpen]);
+      window.addEventListener('keydown', handleEsc);
+      
+      return () => {
+          window.removeEventListener('keydown', handleEsc);
+      };
+  }, [onClose]);
 
-    // Handle escape key press
-    useEffect(() => {
-        const handleEsc = (event: KeyboardEvent) => {
-            if (event.key === 'Escape') {
-                onClose();
-            }
-        };
-        window.addEventListener('keydown', handleEsc);
-        
-        return () => {
-            window.removeEventListener('keydown', handleEsc);
-        };
-    }, [onClose]);
+  if (!isOpen) return null;
+
   
     return (
       <div 
