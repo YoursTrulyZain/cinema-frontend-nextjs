@@ -2,7 +2,7 @@
 
 import { X } from 'lucide-react';
 import React, { useEffect } from 'react'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 interface ModalProps {
     isOpen: boolean;
@@ -26,22 +26,6 @@ function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-lg" }: Moda
         enableBodyScroll(modalElement);
       };
     }, [isOpen]);
-    
-    // Prevent scrolling of the background when modal is open
-    // useEffect(() => {
-    //     if (isOpen) {
-    //         const originalStyle = window.getComputedStyle(document.body).overflow;
-    //         document.body.style.overflow = 'hidden';
-            
-    //         // Add a class to the body to help with styling
-    //         document.body.classList.add('modal-open');
-            
-    //         return () => {
-    //             document.body.style.overflow = originalStyle;
-    //             document.body.classList.remove('modal-open');
-    //         };
-    //     }
-    // }, [isOpen]);
 
     // Handle escape key press
     useEffect(() => {

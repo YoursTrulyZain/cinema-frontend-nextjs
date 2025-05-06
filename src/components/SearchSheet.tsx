@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useMemo, useState } from "react";
+import React from "react";
 import { IoSearchOutline } from "react-icons/io5";
 import {
   Sheet,
@@ -14,23 +14,15 @@ import {
 import MovieSheet from "./MovieSheet";
 import TheatreSheet from "./TheatreSheet";
 import DateSheet from "./DateSheet";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "./ui/accordion";
 import { Separator } from "./ui/separator";
 import { useAppData } from "@/contexts/AppDataContext";
-import MovieBlock from "./MovieBlock";
-import AuditoriumCard from "./AuditoriumCard";
 import { useFilter } from "@/contexts/FilterContext";
 import { Auditorium, AuditoriumType, Movie, ScreeningNormalized, Theatre } from "@/lib/types";
 import TicketPurchaseFlow from "./TicketPurchaseFlow";
 
 function SearchSheet() {
   const { selectedMovie, selectedDate, selectedTheatre, isOpen, toggle } = useFilter();
-  const { movies, theatres, screenings, loading, refreshData } = useAppData();
+  const { screenings } = useAppData();
 
   const filteredScreenings = screenings.filter((screening) => {
     const screeningDate = new Date(screening.startTime).getDate();

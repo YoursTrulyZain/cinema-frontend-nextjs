@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
-import { IoCloseOutline } from "react-icons/io5";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";

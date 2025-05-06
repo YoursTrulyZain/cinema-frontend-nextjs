@@ -8,7 +8,7 @@ import UserSheet from "./UserSheet";
 import SearchSheet from "./SearchSheet";
 import { Skeleton } from "./ui/skeleton";
 import { useEffect, useState } from "react";
-
+import Image from "next/image";
 export default function Header() {
     const { openLoginModal, isLoggedIn } = useLoginContext();
     const { user, isLoading } = useAuth();
@@ -76,9 +76,11 @@ export default function Header() {
             <nav className="py-6 flex justify-between items-center text-white text-2xl">
                 <div className="fixed left-10 top-1.5 z-10 px-10 hover:text-blue-500">
                     <Link href="/">
-                        <img
+                        <Image
                             src="/ticketZ.png"
                             alt="TicketZ Logo"
+                            width={100}
+                            height={100}
                             className="h-20 w-auto rounded-full border-2 border-white antialiased hover:border-blue-500"
                         />
                     </Link>
