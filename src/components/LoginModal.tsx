@@ -60,7 +60,6 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
       });
 
       const data = await response.json();
-      console.log(data);
 
       if (!response.ok) {
         throw new Error(data.message);
