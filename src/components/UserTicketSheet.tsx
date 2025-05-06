@@ -14,7 +14,7 @@ function UserTicketSheet({ user }: { user: User }) {
           try {
             const responses = await Promise.all(
               user.tickets.map(ticket =>
-                fetch(`api.cinema.z41n.dev/ticket/detail/${ticket.id}`)
+                fetch(`https://api.cinema.z41n.dev/ticket/detail/${ticket.id}`)
               )
             );
       

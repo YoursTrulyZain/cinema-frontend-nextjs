@@ -62,7 +62,7 @@ function useTicketPurchase() {
         }
 
         const requests = seats.map((seat) =>
-          fetch("api.cinema.z41n.dev/ticket", {
+          fetch("https://api.cinema.z41n.dev/ticket", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

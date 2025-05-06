@@ -23,8 +23,8 @@ function AppDataProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
         try {
             const [movieResponse, theatreResponse] = await Promise.all([
-                fetch('api.cinema.z41n.dev/movie'),
-                fetch('api.cinema.z41n.dev/theatre/everything'),
+                fetch('https://api.cinema.z41n.dev/movie'),
+                fetch('https://api.cinema.z41n.dev/theatre/everything'),
             ]);
             const [moviesData, theatresData] = await Promise.all([movieResponse.json(), theatreResponse.json()]);
             setMovies(moviesData);

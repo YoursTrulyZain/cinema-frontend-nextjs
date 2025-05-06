@@ -24,7 +24,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
       }
   
       try {
-        const res = await fetch("api.cinema.z41n.dev/user/me", {
+        const res = await fetch("https://api.cinema.z41n.dev/user/me", {
           headers: { Authorization: `Bearer ${token}` },
         });
   
