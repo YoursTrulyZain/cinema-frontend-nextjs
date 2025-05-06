@@ -110,7 +110,7 @@ function TicketPurchaseFlow({
                         </div>
                         <div className="flex flex-col gap-5 w-full lg:w-1/2">
                           {Object.entries(movieGroup.auditoriums).map(
-                            ([auditoriumType, auditoriumGroup]) => (
+                            ([, auditoriumGroup]) => (
                               <div key={auditoriumGroup.auditorium.id}>
                                 <AuditoriumCardWrapper
                                   auditoriumGroup={auditoriumGroup}
