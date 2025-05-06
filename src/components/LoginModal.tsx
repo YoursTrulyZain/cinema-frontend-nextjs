@@ -51,7 +51,7 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
     setError("");
     setIsLoading(true);
     try {
-      const response = await fetch("http://localhost:3001/auth/login", {
+      const response = await fetch("api.cinema.z41n.dev/auth/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -66,7 +66,7 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
         throw new Error(data.message);
       }
 
-      const userRes = await fetch("http://localhost:3001/user/me", {
+      const userRes = await fetch("api.cinema.z41n.dev/user/me", {
         headers: {
           Authorization: `Bearer ${data.accessToken}`,
         },
