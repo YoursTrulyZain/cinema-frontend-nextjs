@@ -36,6 +36,7 @@ function UserTicketSheet({ user }: { user: User }) {
       
         fetchData();
       }, [user]);
+      
     return (
         <Sheet>
           <SheetTrigger asChild>
@@ -47,7 +48,10 @@ function UserTicketSheet({ user }: { user: User }) {
               <SheetDescription>Menu for user to view tickets, manage personal information and logout.</SheetDescription>
             </SheetHeader>
             <div className='text-white text-4xl font-bold mx-15 my-5'>Your Tickets</div>
-            <div id="theatre-grid-container" className="flex flex-wrap gap-8 mx-15">
+            {ticketsData.length === 0 ? (
+              <div className='text-center text-white text-4xl font-bold mx-15 my-5'>You have no tickets</div>
+            ) : (
+              <div id="theatre-grid-container" className="flex flex-wrap gap-8 mx-15">
         {ticketsData.map((ticketData) => (
           <Card key={ticketData.id} className='w-[300px] hover:scale-105 transition-all hover:border-amber-500 cursor-pointer'>
             <CardHeader>
@@ -65,8 +69,9 @@ function UserTicketSheet({ user }: { user: User }) {
                 <p><span className='font-bold text-amber-500'>Ticket ID:</span> {ticketData.id}</p>
             </CardFooter>
           </Card>
-        ))}
-      </div>
+                ))}
+                </div>
+            )}
             <SheetFooter>
             </SheetFooter>
           </SheetContent>

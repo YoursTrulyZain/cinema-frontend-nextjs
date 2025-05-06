@@ -38,7 +38,7 @@ function DateSheet() {
         </div>
     </div>
           </SheetTrigger>
-          <SheetContent className='bg-gradient-to-b from-black via-[#4169e1] to-black border-none w-screen'>
+          <SheetContent className='bg-gradient-to-b from-black via-[#4169e1] to-black border-none w-screen overflow-y-auto max-h-screen'>
             <SheetHeader className='hidden'>
               <SheetTitle className='text-5xl mx-10 mt-10'>Select a Date</SheetTitle>
               <SheetDescription>Select a date to see showtimes</SheetDescription>

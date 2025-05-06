@@ -59,6 +59,7 @@ export type Movie = {
   tags: string[];
   duration: number;
   screenings: Screening[];
+  posterUrl: string;
 };
 
 export type Ticket = {
@@ -99,8 +100,6 @@ export type AuditoriumData = {
 export type TheatreData = {
   name: string;
   location: string;
-  phone: string;
-  email: string;
 };
 
 export type MovieData = {
@@ -138,8 +137,6 @@ export type Theatre = {
   id: string;
   name: string;
   location: string;
-  phone: string;
-  email: string;
   auditoriums: Auditorium[];
 };
 
@@ -154,21 +151,23 @@ export type Auditorium = {
 
 export type AuditoriumType =
   | "IMAX"
-  | "STANDARD"
+  | "REGULAR"
   | "CC"
   | "DBOX"
   | "SCREENX"
   | "DOLBY_ATMOS"
-  | "DOLBY_3D";
+  | "DOLBY_3D"
+  | "LASERPROJECTION";
 
 export const ALL_AUDITORIUM_TYPES: AuditoriumType[] = [
   "IMAX",
-  "STANDARD",
+  "REGULAR",
   "CC",
   "DBOX",
   "SCREENX",
   "DOLBY_ATMOS",
   "DOLBY_3D",
+  "LASERPROJECTION",
 ];
 
 export type Row =

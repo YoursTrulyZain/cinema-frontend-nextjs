@@ -138,20 +138,3 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
 }
 
 export default LoginModal;
-
-// <div className="fixed inset-0 flex items-center justify-center bg-black/80 z-50">
-//     <div className="bg-white rounded-lg shadow-lg p-6 w-[90%] max-w-md flex flex-col gap-4  justify-center text-black">
-
-//         <div className='flex justify-between items-center'>
-//             <div className='w-full'>
-//                 <div className='flex justify-between items-center'>
-//                     <h1 className='text-2xl font-bold'>Login</h1>
-//                     <IoCloseOutline onClick={onClose} className='text-2xl cursor-pointer' />
-//                 </div>
-
-//                 <p className='text-sm text-gray-500'>Don't have an account? <Link href="/signup" className='text-blue-500 underline'>Sign up</Link></p>
-//             </div>
-//         </div>
-
-//     </div>
-// </div>

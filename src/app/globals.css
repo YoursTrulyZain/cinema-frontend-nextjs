@@ -17,6 +17,6 @@
 }
 
 /* Make sure elements behind modals can't be interacted with */
-body.modal-open > *:not([role="dialog"]) {
+/* body.modal-open > *:not([role="dialog"]) {
   pointer-events: none !important;
-}
+} */

@@ -33,8 +33,7 @@ function SearchSheet() {
   const { movies, theatres, screenings, loading, refreshData } = useAppData();
 
   const filteredScreenings = screenings.filter((screening) => {
-    // const screeningDate = new Date(screening.startTime).getDate();
-    const screeningDate = null
+    const screeningDate = new Date(screening.startTime).getDate();
     const matchesMovie =
       !selectedMovie || screening.movie.id === selectedMovie.id;
     const matchesDate = !selectedDate || screeningDate === selectedDate.getDate();

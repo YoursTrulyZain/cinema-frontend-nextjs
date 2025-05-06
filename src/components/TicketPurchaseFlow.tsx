@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import React, { memo } from "react";
 import {
@@ -37,25 +37,27 @@ type GroupedByTheatre = Record<
 >;
 
 // Memoized AuditoriumCardWrapper to prevent unnecessary re-renders
-const AuditoriumCardWrapper = memo(({ 
-  auditoriumGroup, 
-  handleScreeningSelect 
-}: { 
-  auditoriumGroup: {
-    auditorium: Auditorium;
-    screenings: ScreeningNormalized[];
-  };
-  handleScreeningSelect: (screening: ScreeningNormalized) => void;
-}) => {
-  return (
-    <AuditoriumCard
-      auditoriumGroup={auditoriumGroup}
-      handleScreeningSelect={handleScreeningSelect}
-    />
-  );
-});
+const AuditoriumCardWrapper = memo(
+  ({
+    auditoriumGroup,
+    handleScreeningSelect,
+  }: {
+    auditoriumGroup: {
+      auditorium: Auditorium;
+      screenings: ScreeningNormalized[];
+    };
+    handleScreeningSelect: (screening: ScreeningNormalized) => void;
+  }) => {
+    return (
+      <AuditoriumCard
+        auditoriumGroup={auditoriumGroup}
+        handleScreeningSelect={handleScreeningSelect}
+      />
+    );
+  }
+);
 
-AuditoriumCardWrapper.displayName = 'AuditoriumCardWrapper';
+AuditoriumCardWrapper.displayName = "AuditoriumCardWrapper";
 
 function TicketPurchaseFlow({
   groupedByTheatre,
@@ -81,7 +83,9 @@ function TicketPurchaseFlow({
 
   // Early return if there's no data
   if (!groupedByTheatre || Object.keys(groupedByTheatre).length === 0) {
-    return <div className="p-4 text-center text-white">No screenings available</div>;
+    return (
+      <div className="p-4 text-center text-white">No screenings available</div>
+    );
   }
 
   return (
@@ -94,28 +98,32 @@ function TicketPurchaseFlow({
                 {theatreGroup.theatre.name}
               </AccordionTrigger>
               <AccordionContent className="mx-15">
-                {Object.entries(theatreGroup.movies).map(
-                  ([movieId, movieGroup]) => (
-                    <div
-                      key={movieId}
-                      className="flex gap-5 mt-5 mb-10 justify-between"
-                    >
-                      <div>
-                        <MovieBlock movie={movieGroup.movie} />
+                <div className="flex flex-col gap-2">
+                  {Object.entries(theatreGroup.movies).map(
+                    ([movieId, movieGroup]) => (
+                      <div
+                        key={movieId}
+                        className="flex flex-col lg:flex-row gap-5 mt-20 mb-20 justify-between"
+                      >
+                        <div className="w-full lg:w-1/2">
+                          <MovieBlock movie={movieGroup.movie} />
+                        </div>
+                        <div className="flex flex-col gap-5 w-full lg:w-1/2">
+                          {Object.entries(movieGroup.auditoriums).map(
+                            ([auditoriumType, auditoriumGroup]) => (
+                              <div key={auditoriumGroup.auditorium.id}>
+                                <AuditoriumCardWrapper
+                                  auditoriumGroup={auditoriumGroup}
+                                  handleScreeningSelect={handleScreeningSelect}
+                                />
+                              </div>
+                            )
+                          )}
+                        </div>
                       </div>
-                      {Object.entries(movieGroup.auditoriums).map(
-                        ([auditoriumType, auditoriumGroup]) => (
-                          <div key={auditoriumGroup.auditorium.id}>
-                            <AuditoriumCardWrapper
-                              auditoriumGroup={auditoriumGroup}
-                              handleScreeningSelect={handleScreeningSelect}
-                            />
-                          </div>
-                        )
-                      )}
-                    </div>
-                  )
-                )}
+                    )
+                  )}
+                </div>
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -132,7 +140,7 @@ function TicketPurchaseFlow({
           onContinue={handleQuantityContinue}
         />
       )}
-      
+
       {showSeatSelectionModal && (
         <SeatSelectionModal
           isOpen={showSeatSelectionModal}
@@ -142,7 +150,7 @@ function TicketPurchaseFlow({
           onPurchase={handlePurchase}
         />
       )}
-      
+
       {showSuccessModal && (
         <PurchaseSuccessModal
           isOpen={showSuccessModal}

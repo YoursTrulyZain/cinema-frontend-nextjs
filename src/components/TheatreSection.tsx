@@ -23,9 +23,9 @@ function TheatreSection() {
         )
         }
   return (
-    <section className="flex flex-col gap-6 mx-13 mt-15" >
+    <section className="flex flex-col items-center md:items-start gap-6 mx-13 mt-15" >
       <SectionHeader title="Theatres" />
-      <div id="theatre-grid-container" className="flex flex-wrap gap-8">
+      <div id="theatre-grid-container" className="flex flex-col md:flex-row items-center md:items-start gap-8">
         {theatres.map((theatre) => (
           <Card key={theatre.id} onClick={() => openWithTheatre(theatre)} className='w-[250px] hover:scale-105 transition-all hover:border-amber-500 cursor-pointer'>
             <CardHeader>

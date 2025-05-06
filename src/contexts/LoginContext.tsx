@@ -3,6 +3,7 @@
 import LoginModal from "@/components/LoginModal";
 import { LoginContextType } from "@/lib/types";
 import { createContext, useContext, useState } from "react";
+import { useAuth } from "./AuthContext";
 
 const LoginContext = createContext<LoginContextType | undefined>(undefined);
 
@@ -13,6 +14,7 @@ const useLoginContext = () => {
 }
  
 function LoginProvider({ children }: { children: React.ReactNode }) {
+    const { refreshUser } = useAuth();
     const [showLoginModal, setShowLoginModal] = useState(false);
 
     const openLoginModal = () => {
@@ -22,6 +24,7 @@ function LoginProvider({ children }: { children: React.ReactNode }) {
     const handleLoginSuccess = (token: string) => {
         localStorage.setItem('token', token);
         setShowLoginModal(false);
+        refreshUser();
     }
 
     const isLoggedIn = () => !!localStorage.getItem('token');

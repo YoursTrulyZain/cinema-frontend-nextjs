@@ -27,11 +27,11 @@ function AuditoriumCard({auditoriumGroup, handleScreeningSelect}: AuditoriumCard
   }
 
   return (
-    <div className='bg-gray-500/50 p-10 flex flex-col gap-5 min-w-[800px] rounded-md'>
+    <div className='bg-gray-500/50 p-10 flex flex-col gap-5 rounded-md'>
         <div>
             <div className='text-2xl font-bold'>{auditoriumGroup.auditorium.type}</div>
         </div>
-        <div className='flex gap-5'>
+        <div className='flex gap-5 flex-wrap'>
             {auditoriumGroup.screenings.sort(
                             (a, b) =>
                               new Date(a.startTime).getTime() -

@@ -23,9 +23,9 @@ function MovieSection() {
       )
       }
     return (
-        <section className="flex flex-col gap-6 mx-13 mt-17">
+        <section className="flex flex-col items-center md:items-start gap-6 mx-13 mt-17">
             <SectionHeader title="Movies" />
-            <div id="movie-grid-container" className="flex flex-wrap gap-8">
+            <div id="movie-grid-container" className="flex flex-col md:flex-row items-center md:items-start flex-wrap gap-8">
                 {movies.map((movie) => (
                     <MovieCard key={movie.id} movie={movie} />
                 ))}

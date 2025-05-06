@@ -31,7 +31,7 @@ function MovieSheet() {
         </div>
     </div>
           </SheetTrigger>
-          <SheetContent className='bg-gradient-to-b from-black via-[#4169e1] to-black border-none w-screen'>
+          <SheetContent className='bg-gradient-to-b from-black via-[#4169e1] to-black border-none w-screen overflow-y-auto max-h-screen'>
             <SheetHeader className='hidden'>
               <SheetTitle className='text-5xl mx-10 mt-10'>Movies</SheetTitle>
               <SheetDescription>Select a movie to see showtimes</SheetDescription>
@@ -39,12 +39,12 @@ function MovieSheet() {
             <h2 className="text-4xl font-bold my-10 mx-10">Movies</h2>
             <div className='mx-10 flex flex-wrap gap-8'>
             <div className='flex flex-col gap-2 hover:scale-105 transition-all'>
-                  <Image onClick={() => handleMovieClick(null)} className='border border-gray-300 hover:border-amber-500 cursor-pointer' src="/view-all-movies.png" alt="All Movies" width={272} height={408} />
+                  <Image onClick={() => handleMovieClick(null)} className='border border-gray-300 hover:border-amber-500 cursor-pointer h-[408px] w-[272px]' src="/view-all-movies.png" alt="All Movies" width={272} height={408} />
                   <p>All Movies</p>
                 </div>
               {movies.map((movie) => (
-                <div key={movie.id} className='flex flex-col gap-2 hover:scale-105 transition-all'>
-                  <Image onClick={() => handleMovieClick(movie)} className='border border-gray-300 hover:border-amber-500 cursor-pointer' src="/the-dark-knight.jpg" alt={movie.title} width={272} height={408} />
+                <div key={movie.id} className='flex flex-col flex-wrap gap-2 hover:scale-105 transition-all max-w-[272px]'>
+                  <Image onClick={() => handleMovieClick(movie)} className='border border-gray-300 hover:border-amber-500 cursor-pointer h-[408px] w-[272px]' src={movie.posterUrl} alt={movie.title} width={272} height={408} />
                   <p>{movie.title}</p>
                 </div>
               ))}
