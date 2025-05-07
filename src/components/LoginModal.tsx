@@ -6,6 +6,17 @@ import { Button } from "./ui/button";
 import { useAuth } from "@/contexts/AuthContext";
 import Modal from "./Modal";
 
+// Test account sticky note component
+const TestAccountStickyNote = () => {
+  return (
+    <div className="fixed top-4 right-4 bg-yellow-200 p-4 rounded-lg shadow-lg transform rotate-2 z-[10001] max-w-xs text-black">
+      <h3 className="font-bold text-sm mb-2">Account creation will be added soon. For now use this account to log in</h3>
+      <p className="text-sm mb-1"><strong>Email: </strong>user.test@tester.com</p>
+      <p className="text-sm"><strong>Password: </strong>tester1234</p>
+    </div>
+  );
+};
+
 interface LoginModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -84,54 +95,58 @@ function LoginModal({ isOpen, onClose, onLoginSuccess }: LoginModalProps) {
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose} title="Login">
-      <div className="flex flex-col gap-4">
-        <form ref={formRef} className="flex flex-col gap-4" onSubmit={handleSubmit}>
-          <Input
-            type="email"
-            placeholder="Email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            className="z-[10000]"
-            tabIndex={1}
-          />
-          <Input
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="z-[10000]"
-            tabIndex={2}
-          />
-          <div>{error && <p className="text-red-500">{error}</p>}</div>
-          <div>
-            {isLoading ? (
-              <Button
-                type="submit"
-                className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
-                disabled
-                tabIndex={-1}
-              >
-                <div className="w-4 h-4 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>{" "}
-                Please Wait
-              </Button>
-            ) : (
-              <Button
-                type="submit"
-                className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
-                disabled={!email || !password}
-                tabIndex={3}
-              >
-                Login
-              </Button>
-            )}
-          </div>
-          {/* <p className='text-sm text-gray-500 text-center pt-2'>Don&apos;t have an account? <Link href="/signup" className='text-blue-500 underline z-[10000]' tabIndex={4}>Sign up</Link></p> */}
-        </form>
-      </div>
-    </Modal>
+    <>
+      {/* Test account sticky note - Comment out to remove */}
+      <TestAccountStickyNote />
+      <Modal isOpen={isOpen} onClose={onClose} title="Login">
+        <div className="flex flex-col gap-4">
+          <form ref={formRef} className="flex flex-col gap-4" onSubmit={handleSubmit}>
+            <Input
+              type="email"
+              placeholder="Email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="z-[10000]"
+              tabIndex={1}
+            />
+            <Input
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="z-[10000]"
+              tabIndex={2}
+            />
+            <div>{error && <p className="text-red-500">{error}</p>}</div>
+            <div>
+              {isLoading ? (
+                <Button
+                  type="submit"
+                  className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
+                  disabled
+                  tabIndex={-1}
+                >
+                  <div className="w-4 h-4 border-4 border-gray-300 border-t-black rounded-full animate-spin"></div>{" "}
+                  Please Wait
+                </Button>
+              ) : (
+                <Button
+                  type="submit"
+                  className="bg-black w-full text-white cursor-pointer py-3 z-[10000]"
+                  disabled={!email || !password}
+                  tabIndex={3}
+                >
+                  Login
+                </Button>
+              )}
+            </div>
+            {/* <p className='text-sm text-gray-500 text-center pt-2'>Don&apos;t have an account? <Link href="/signup" className='text-blue-500 underline z-[10000]' tabIndex={4}>Sign up</Link></p> */}
+          </form>
+        </div>
+      </Modal>
+    </>
   );
 }
 

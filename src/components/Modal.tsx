@@ -60,7 +60,7 @@ function Modal({ isOpen, onClose, title, children, maxWidth = "max-w-lg" }: Moda
           onClick={e => e.stopPropagation()}
           style={{ pointerEvents: 'auto' }}
         >
-          <div className="flex justify-between items-center pt-3 sm:pt-4 px-3 sm:px-6 sticky top-0 bg-white z-10 border-b">
+          <div className="flex justify-between items-center pt-3 sm:pt-4 px-3 sm:px-6 sticky top-0 bg-white z-10">
             <h2 className="text-xl sm:text-2xl font-bold">{title}</h2>
             <button 
               onClick={onClose} 
