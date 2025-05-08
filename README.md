@@ -2,6 +2,8 @@
 
 A modern, responsive web application for a cinema booking system built with Next.js 15 and React 19. This application provides a seamless movie ticket booking experience with a beautiful and intuitive user interface.
 
+The backend for this project can be found here: https://github.com/YoursTrulyZain/cinema-backend-nestjs
+
 ## Features
 
 - 🎬 Movie browsing and searching
